@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { ThemeProvider } from '@mui/material/styles'
+import { theme } from './theme/theme'
+import MainLayout from './layouts/MainLayout'
+import CourseGrid from './components/courses/CourseGrid'
+import NewCourse from './components/courses/NewCourse'
+import Login from './pages/Login'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<CourseGrid />} />
+            <Route path="/courses" element={<CourseGrid />} />
+            <Route path="/courses/add" element={<NewCourse />} />
+            <Route path="/profile" element={<div>Profile</div>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
+  )
 }
 
-export default App;
+export default App
