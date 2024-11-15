@@ -19,7 +19,7 @@ const CourseGrid = () => {
     try {
       setLoading(true)
       const response = await axios.get(
-        `${API_URL}/courses`,
+        `${API_URL}/api/courses`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         }
