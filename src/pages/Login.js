@@ -67,6 +67,8 @@ const styles = {
   }
 };
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://course-catalog-2nih.onrender.com/api';
+
 const Login = () => {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -92,19 +94,19 @@ const Login = () => {
     }
     
     try {
-      if (isSignUp) {
-        const response = await axios.post('http://localhost:5000/api/signup', formData);
-        localStorage.setItem('token', response.data.accessToken);
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        navigate('/courses');
-      } else {
-        const response = await axios.post('http://localhost:5000/api/login', formData);
-        localStorage.setItem('token', response.data.accessToken);
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        navigate('/courses');
-      }
+      const endpoint = isSignUp ? '/api/signup' : '/api/login';
+      const response = await axios.post(`${API_BASE_URL}${endpoint}`, {
+        email: formData.email.trim(),
+        password: formData.password
+      });
+      
+      localStorage.setItem('token', response.data.accessToken);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      navigate('/courses');
     } catch (err) {
-      setError(isSignUp ? 'Sign up failed' : 'Invalid email or password');
+      const errorMessage = err.response?.data?.message || 
+                          (isSignUp ? 'Sign up failed' : 'Invalid email or password');
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -113,16 +115,20 @@ const Login = () => {
   const handleGoogleSuccess = async (credentialResponse) => {
     setIsLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/google', {
+      const response = await axios.post(`${API_BASE_URL}/api/auth/google`, {
         token: credentialResponse.credential
       });
       
-      localStorage.setItem('token', response.data.accessToken);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
-      
-      navigate('/courses');
+      if (response.data.accessToken) {
+        localStorage.setItem('token', response.data.accessToken);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        navigate('/courses');
+      } else {
+        throw new Error('Invalid response from server');
+      }
     } catch (error) {
-      setError('Google sign-in failed');
+      const errorMessage = error.response?.data?.message || 'Google sign-in failed';
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

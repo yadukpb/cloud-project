@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
 import { theme } from './theme/theme'
 import MainLayout from './layouts/MainLayout'
@@ -11,9 +11,10 @@ function App() {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route element={<MainLayout />}>
-            <Route path="/" element={<CourseGrid />} />
+            <Route path="/dashboard" element={<CourseGrid />} />
             <Route path="/courses" element={<CourseGrid />} />
             <Route path="/courses/add" element={<NewCourse />} />
             <Route path="/profile" element={<div>Profile</div>} />

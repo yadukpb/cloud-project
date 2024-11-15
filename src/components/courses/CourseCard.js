@@ -45,6 +45,8 @@ const StyledCard = styled(Card)`
   }
 `;
 
+const API_URL = 'https://course-catalog-2nih.onrender.com/api'
+
 const CourseCard = ({ courseData, onEnrollmentChange, isUserCourse }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -71,7 +73,7 @@ const CourseCard = ({ courseData, onEnrollmentChange, isUserCourse }) => {
     try {
       const endpoint = courseData.isEnrolled ? 'unenroll' : 'enroll'
       await axios.post(
-        `http://localhost:5000/api/courses/${courseData._id}/${endpoint}`,
+        `${API_URL}/courses/${courseData._id}/${endpoint}`,
         {},
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
@@ -93,7 +95,7 @@ const CourseCard = ({ courseData, onEnrollmentChange, isUserCourse }) => {
   const handleEdit = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/api/courses/${courseData._id}`,
+        `${API_URL}/courses/${courseData._id}`,
         editedCourse,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
@@ -110,7 +112,7 @@ const CourseCard = ({ courseData, onEnrollmentChange, isUserCourse }) => {
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/courses/${courseData._id}`,
+        `${API_URL}/courses/${courseData._id}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         }
