@@ -67,7 +67,7 @@ const styles = {
   }
 };
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://course-catalog-2nih.onrender.com/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://course-catalog-2nih.onrender.com';
 
 const Login = () => {
   const theme = useTheme();

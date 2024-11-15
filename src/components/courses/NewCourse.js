@@ -59,6 +59,8 @@ const StyledTextField = React.memo(props => (
   />
 ))
 
+const API_URL = process.env.REACT_APP_API_URL || 'https://course-catalog-2nih.onrender.com'
+
 const NewCourse = () => {
   const navigate = useNavigate()
   const [courseData, setCourseData] = useState({
@@ -89,7 +91,7 @@ const NewCourse = () => {
       }
       
       await axios.post(
-        'http://localhost:5000/api/courses',
+        `${API_URL}/api/courses`,
         formattedData,
         {
           headers: { 

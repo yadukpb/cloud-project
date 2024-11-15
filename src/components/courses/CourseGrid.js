@@ -4,7 +4,7 @@ import { Search } from '@mui/icons-material'
 import CourseCard from './CourseCard'
 import axios from 'axios'
 
-const API_URL = 'https://course-catalog-2nih.onrender.com/api' || process.env.REACT_APP_API_URL
+const API_URL = 'https://course-catalog-2nih.onrender.com' || process.env.REACT_APP_API_URL
 
 const CourseGrid = () => {
   const [searchQuery, setSearchQuery] = useState('')
