@@ -45,7 +45,7 @@ const StyledCard = styled(Card)`
   }
 `;
 
-const API_URL = 'https://course-catalog-2nih.onrender.com'
+const API_URL = 'https://course-catalog-5tbw.onrender.com'
 
 const CourseCard = ({ courseData, onEnrollmentChange, isUserCourse }) => {
   const [openDialog, setOpenDialog] = useState(false);
