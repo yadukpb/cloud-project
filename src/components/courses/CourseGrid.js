@@ -21,7 +21,11 @@ const CourseGrid = () => {
       const response = await axios.get(
         `${API_URL}/api/courses`,
         {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+          withCredentials: true,
+          headers: { 
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+          }
         }
       )
       const filteredCourses = filterCoursesBySearch(response.data)

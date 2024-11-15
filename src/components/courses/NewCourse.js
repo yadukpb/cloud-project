@@ -94,6 +94,7 @@ const NewCourse = () => {
         `${API_URL}/api/courses`,
         formattedData,
         {
+          withCredentials: true,
           headers: { 
             Authorization: `Bearer ${localStorage.getItem('token')}`,
             'Content-Type': 'application/json'

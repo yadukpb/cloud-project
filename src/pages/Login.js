@@ -95,10 +95,19 @@ const Login = () => {
     
     try {
       const endpoint = isSignUp ? '/api/signup' : '/api/login';
-      const response = await axios.post(`${API_BASE_URL}${endpoint}`, {
-        email: formData.email.trim(),
-        password: formData.password
-      });
+      const response = await axios.post(
+        `${API_BASE_URL}${endpoint}`,
+        {
+          email: formData.email.trim(),
+          password: formData.password
+        },
+        {
+          withCredentials: true,
+          headers: { 
+            'Content-Type': 'application/json'
+          }
+        }
+      );
       
       localStorage.setItem('token', response.data.accessToken);
       localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -115,9 +124,18 @@ const Login = () => {
   const handleGoogleSuccess = async (credentialResponse) => {
     setIsLoading(true);
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/auth/google`, {
-        token: credentialResponse.credential
-      });
+      const response = await axios.post(
+        `${API_BASE_URL}/api/auth/google`,
+        {
+          token: credentialResponse.credential
+        },
+        {
+          withCredentials: true,
+          headers: { 
+            'Content-Type': 'application/json'
+          }
+        }
+      );
       
       if (response.data.accessToken) {
         localStorage.setItem('token', response.data.accessToken);

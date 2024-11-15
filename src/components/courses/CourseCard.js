@@ -71,19 +71,23 @@ const CourseCard = ({ courseData, onEnrollmentChange, isUserCourse }) => {
 
   const handleEnrollment = async () => {
     try {
-      const endpoint = courseData.isEnrolled ? 'unenroll' : 'enroll'
+      const endpoint = courseData.isEnrolled ? 'unenroll' : 'enroll';
       await axios.post(
         `${API_URL}/courses/${courseData._id}/${endpoint}`,
         {},
         {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+          withCredentials: true,
+          headers: { 
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+          }
         }
-      )
-      onEnrollmentChange()
+      );
+      onEnrollmentChange();
     } catch (error) {
-      console.error('Error updating enrollment:', error)
+      console.error('Error updating enrollment:', error);
     }
-  }
+  };
 
   const handleEditChange = (field) => (event) => {
     setEditedCourse({
@@ -98,7 +102,11 @@ const CourseCard = ({ courseData, onEnrollmentChange, isUserCourse }) => {
         `${API_URL}/api/courses/${courseData._id}`,
         editedCourse,
         {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+          withCredentials: true,
+          headers: { 
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+          }
         }
       )
       onEnrollmentChange()
@@ -114,7 +122,11 @@ const CourseCard = ({ courseData, onEnrollmentChange, isUserCourse }) => {
       await axios.delete(
         `${API_URL}/api/courses/${courseData._id}`,
         {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+          withCredentials: true,
+          headers: { 
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+          }
         }
       )
       onEnrollmentChange()
