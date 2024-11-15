@@ -95,7 +95,7 @@ const CourseCard = ({ courseData, onEnrollmentChange, isUserCourse }) => {
   const handleEdit = async () => {
     try {
       await axios.put(
-        `${API_URL}/courses/${courseData._id}`,
+        `${API_URL}/api/courses/${courseData._id}`,
         editedCourse,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
@@ -112,7 +112,7 @@ const CourseCard = ({ courseData, onEnrollmentChange, isUserCourse }) => {
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `${API_URL}/courses/${courseData._id}`,
+        `${API_URL}/api/courses/${courseData._id}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         }
